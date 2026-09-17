@@ -57,8 +57,12 @@ firmware works whether your board is built **MIT** (one 2u spacebar) or **grid**
 
 ## What the firmware includes
 
-Enabled: Vial + VIA protocol, dynamic keymaps, **tap dance**, **combos**,
-**key overrides**, auto shift, caps word, NKRO, extrakey (media/volume), bootmagic.
+Enabled: Vial + VIA protocol, dynamic keymaps and macros, **tap dance**, **combos**,
+**key overrides**, caps word, layer lock, repeat key, tri layer, NKRO,
+extrakey (media/volume), bootmagic, send string.
+
+All of the above was read back from the build with
+`make planck/rev5:vial:dump_vars`, not assumed.
 
 Disabled, deliberately — see [docs/constraints.md](docs/constraints.md):
 
@@ -73,6 +77,8 @@ Disabled, deliberately — see [docs/constraints.md](docs/constraints.md):
 | `SPACE_CADET_ENABLE = no` | Flash budget |
 | `GRAVE_ESC_ENABLE = no` | Flash budget |
 | `MUSIC_ENABLE = no` | Needs audio hardware |
+| `MOUSEKEY_ENABLE = no` | rev5 board default. Vial will offer mouse keycodes, but they do nothing until you enable this and rebuild |
+| `AUTO_SHIFT_ENABLE` off | Pulled in by `QMK_SETTINGS`; goes away with it |
 
 Re-enable anything you have hardware for — but check the size report, the budget is tight.
 
