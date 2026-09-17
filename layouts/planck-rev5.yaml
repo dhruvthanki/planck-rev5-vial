@@ -15,10 +15,10 @@ layers:
     - {t: ;, h: RGUI}
     - ''''
   - [LSFT, Z, X, C, V, B, N, M, ',', ., /, ENT]
-  - [Adjust, LCTL, LALT, LGUI, Lower, SPACE, Raise, LEFT, DOWN, UP, RIGHT]
+  - [Adjust, LCTL, LALT, Super+Nav, Lower, SPACE, Raise, LEFT, DOWN, UP, RIGHT]
   Lower:
   - [Sft+`, Sft+1, Sft+2, Sft+3, Sft+4, Sft+5, Sft+6, Sft+7, Sft+8, Sft+9, Sft+0, BSPC]
-  - [DEL, F1, F2, F3, F4, F5, F6, Sft+-, Sft+=, 'Sft+[', 'Sft+]', Sft+\]
+  - [DEL, F1, F2, F3, F4, F5, LEFT, DOWN, UP, RIGHT, 'Sft+]', Sft+\]
   - - {t: ▽, type: trans}
     - F7
     - F8

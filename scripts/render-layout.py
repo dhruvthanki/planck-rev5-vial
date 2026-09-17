@@ -43,6 +43,9 @@ ALIASES = {
     "KC_WH_L": "Whl ←", "KC_WH_D": "Whl ↓", "KC_WH_U": "Whl ↑", "KC_WH_R": "Whl →",
     "KC_BTN1": "LMB", "KC_BTN2": "RMB", "KC_BTN3": "MMB",
     "KC_ACL0": "Slow", "KC_ACL1": "Med", "KC_ACL2": "Fast",
+    # LM(1, MOD_LGUI): holds Super and switches to Lower, where HJKL are arrows.
+    # Vial has no symbolic name for layer-mod keycodes either.
+    "0x5028": "Super+Nav",
 }
 
 
