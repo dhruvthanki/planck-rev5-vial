@@ -37,6 +37,12 @@ ALIASES = {
     # Vial has no symbolic name for the dynamic tapping term keycodes, so it
     # exports them as raw hex. Give them readable labels in the diagram.
     "0x7C70": "DT_PRNT", "0x7C71": "DT_UP", "0x7C72": "DT_DOWN",
+    # Mouse keys: Vial exports the old KC_ spellings. Give them labels that read
+    # as a diagram rather than as keycodes.
+    "KC_MS_L": "Mouse ←", "KC_MS_D": "Mouse ↓", "KC_MS_U": "Mouse ↑", "KC_MS_R": "Mouse →",
+    "KC_WH_L": "Whl ←", "KC_WH_D": "Whl ↓", "KC_WH_U": "Whl ↑", "KC_WH_R": "Whl →",
+    "KC_BTN1": "LMB", "KC_BTN2": "RMB", "KC_BTN3": "MMB",
+    "KC_ACL0": "Slow", "KC_ACL1": "Med", "KC_ACL2": "Fast",
 }
 
 
