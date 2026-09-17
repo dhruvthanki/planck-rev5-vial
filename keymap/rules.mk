@@ -23,3 +23,7 @@ MUSIC_ENABLE = no
 MOUSEKEY_ENABLE = yes
 DYNAMIC_TAPPING_TERM_ENABLE = yes
 GRAVE_ESC_ENABLE = yes
+
+# Unused (no QK_REP/QK_AREP bound, all alt_repeat_key slots empty) and worth
+# 1368 bytes, which is what the home row mod options cost.
+REPEAT_KEY_ENABLE = no

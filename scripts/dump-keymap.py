@@ -80,6 +80,13 @@ def main():
             return names[kc]
         if 0x5220 <= kc <= 0x522F:
             return f"MO({kc - 0x5220})"
+        # Mod-taps, e.g. LGUI_T(KC_A) for a home row mod.
+        if 0x2000 <= kc < 0x4000:
+            base, mod = kc & 0xFF, (kc >> 8) & 0x1F
+            right = "R" if mod & 0x10 else "L"
+            for bit, label in ((0x01, "CTL"), (0x02, "SFT"), (0x04, "ALT"), (0x08, "GUI")):
+                if mod & 0x0F == bit and base in names:
+                    return f"{right}{label}_T({names[base]})"
         # Modified basic keycodes, e.g. LSFT(KC_3) for '#'.
         if 0x0100 <= kc < 0x2000:
             base, mod = kc & 0xFF, kc & 0x1F00

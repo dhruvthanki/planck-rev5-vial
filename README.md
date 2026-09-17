@@ -95,6 +95,7 @@ Disabled, deliberately — see [docs/constraints.md](docs/constraints.md):
 | `MAGIC_ENABLE = no` | Flash budget |
 | `SPACE_CADET_ENABLE = no` | Flash budget |
 | `MUSIC_ENABLE = no` | Needs audio hardware |
+| `REPEAT_KEY_ENABLE = no` | Unused, and worth 1368 bytes -- what the home row mods cost |
 | `AUTO_SHIFT_ENABLE` off | Pulled in by `QMK_SETTINGS`; goes away with it |
 
 Re-enable anything you have hardware for — but check the size report, the budget is tight.
@@ -102,7 +103,7 @@ Re-enable anything you have hardware for — but check the size report, the budg
 ## Current build size
 
 ```
-Flash:   26530 / 28672 bytes  (92%, 2142 free)
+Flash:   26590 / 28672 bytes  (92%, 2082 free)
 Layers:  4 dynamic  (EEPROM-limited, not flash-limited)
 ```
 
@@ -119,6 +120,25 @@ Regenerate after any layout change:
 ```bash
 ./scripts/render-layout.py      # layouts/*.vil -> .yaml + .svg
 ```
+
+### Home row mods
+
+`A S D F` and `J K L ;` are mod-taps -- GUI / Alt / Ctrl / Shift, mirrored:
+
+```
+A     S     D     F           J      K     L     ;
+GUI   Alt   Ctrl  Shift       Shift  Ctrl  Alt   GUI
+```
+
+`CHORDAL_HOLD` only permits a hold when the mod-tap and the following key are on
+opposite hands, so same-hand rolls like `sa` stay as letters. It needs
+`chordal_hold_layout` in `keymap.c`: the array is declared `extern`, and if a keymap
+does not define it the build still links with 48 zero bytes, every chord compares as
+same-handed, and **no mod ever fires**. There is no warning.
+
+Tune the tapping term live with `DT_UP` / `DT_DOWN`, then `DT_PRNT` to read the value
+back and set `TAPPING_TERM` in `config.h` -- the runtime value is RAM-only and resets
+when you replug.
 
 `Lower` = `MO(1)` (symbols, F1–F12), `Raise` = `MO(2)` (numbers, brackets),
 holding both reaches `layer 3`, as does the dedicated `Adjust` key at bottom left.
