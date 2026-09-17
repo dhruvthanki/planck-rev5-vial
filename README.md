@@ -59,7 +59,9 @@ firmware works whether your board is built **MIT** (one 2u spacebar) or **grid**
 
 Enabled: Vial + VIA protocol, dynamic keymaps and macros, **tap dance**, **combos**,
 **key overrides**, caps word, layer lock, repeat key, tri layer, NKRO,
-extrakey (media/volume), bootmagic, send string.
+extrakey (media/volume), bootmagic, send string, **mousekey**,
+**dynamic tapping term** (`DT_UP`/`DT_DOWN`/`DT_PRNT` for runtime hold-vs-tap tuning)
+and grave escape.
 
 All of the above was read back from the build with
 `make planck/rev5:vial:dump_vars`, not assumed.
@@ -75,9 +77,7 @@ Disabled, deliberately — see [docs/constraints.md](docs/constraints.md):
 | `QMK_SETTINGS = no` | Flash budget — costs the Vial settings tab |
 | `MAGIC_ENABLE = no` | Flash budget |
 | `SPACE_CADET_ENABLE = no` | Flash budget |
-| `GRAVE_ESC_ENABLE = no` | Flash budget |
 | `MUSIC_ENABLE = no` | Needs audio hardware |
-| `MOUSEKEY_ENABLE = no` | rev5 board default. Vial will offer mouse keycodes, but they do nothing until you enable this and rebuild |
 | `AUTO_SHIFT_ENABLE` off | Pulled in by `QMK_SETTINGS`; goes away with it |
 
 Re-enable anything you have hardware for — but check the size report, the budget is tight.
@@ -85,7 +85,7 @@ Re-enable anything you have hardware for — but check the size report, the budg
 ## Current build size
 
 ```
-Flash:   24716 / 28672 bytes  (86%, 3956 free)
+Flash:   26530 / 28672 bytes  (92%, 2142 free)
 Layers:  4 dynamic  (EEPROM-limited, not flash-limited)
 ```
 

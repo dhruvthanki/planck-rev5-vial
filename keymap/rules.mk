@@ -14,5 +14,12 @@ RGBLIGHT_ENABLE = no
 QMK_SETTINGS = no
 MAGIC_ENABLE = no
 SPACE_CADET_ENABLE = no
-GRAVE_ESC_ENABLE = no
 MUSIC_ENABLE = no
+
+# Enabled deliberately; measured costs against the 28672-byte ceiling:
+#   MOUSEKEY             +1482   cursor layer
+#   DYNAMIC_TAPPING_TERM  +270   DT_UP/DT_DOWN/DT_PRNT, runtime hold-vs-tap tuning
+#   GRAVE_ESC              +64   shifted Esc produces a backtick
+MOUSEKEY_ENABLE = yes
+DYNAMIC_TAPPING_TERM_ENABLE = yes
+GRAVE_ESC_ENABLE = yes
