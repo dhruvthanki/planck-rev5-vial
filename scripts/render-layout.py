@@ -49,8 +49,27 @@ ALIASES = {
 }
 
 
+# Shifted keycodes render as "Sft+3" unless translated, which means reading the
+# diagram requires knowing a US layout by heart. Show the character instead.
+SHIFTED = {
+    "LSFT(KC_GRAVE)": "~", "LSFT(KC_1)": "!", "LSFT(KC_2)": "@", "LSFT(KC_3)": "#",
+    "LSFT(KC_4)": "$", "LSFT(KC_5)": "%", "LSFT(KC_6)": "^", "LSFT(KC_7)": "&",
+    "LSFT(KC_8)": "*", "LSFT(KC_9)": "(", "LSFT(KC_0)": ")",
+    "LSFT(KC_MINUS)": "_", "LSFT(KC_EQUAL)": "+",
+    "LSFT(KC_LBRACKET)": "{", "LSFT(KC_RBRACKET)": "}", "LSFT(KC_BSLASH)": "|",
+    "LSFT(KC_SCOLON)": ":", "LSFT(KC_QUOTE)": '"', "LSFT(KC_COMMA)": "<",
+    "LSFT(KC_DOT)": ">", "LSFT(KC_SLASH)": "?",
+    # ISO-only keys. keymap-drawer renders KC_NUHS as "#", which on a US layout it
+    # is not -- these produce nothing useful here and are the first slots to reclaim.
+    "KC_NONUS_HASH": "ISO#", "KC_NONUS_BSLASH": "ISO\\",
+    "LSFT(KC_NONUS_HASH)": "ISO#", "LSFT(KC_NONUS_BSLASH)": "ISO\\",
+}
+
+
 def normalise(kc: str) -> str:
     """Rewrite long-form aliases, including inside wrappers like LSFT(...)."""
+    if kc in SHIFTED:
+        return SHIFTED[kc]
     if kc.lower().startswith("0x"):
         kc = "0x" + kc[2:].upper()
     for old, new in ALIASES.items():
