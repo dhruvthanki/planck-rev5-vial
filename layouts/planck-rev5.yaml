@@ -1,10 +1,10 @@
-layout: {qmk_keyboard: planck/rev5, layout_name: LAYOUT_ortho_4x12}
+layout: {qmk_keyboard: planck/rev5, layout_name: LAYOUT_planck_1x2uC}
 layers:
   Base:
   - [TAB, Q, W, E, R, T, Y, U, I, O, P, BSPC]
   - [ESC, A, S, D, F, G, H, J, K, L, ;, '''']
   - [LSFT, Z, X, C, V, B, N, M, ',', ., /, ENT]
-  - [Adjust, LCTL, LALT, LGUI, Lower, SPACE, SPACE, Raise, LEFT, DOWN, UP, RIGHT]
+  - [Adjust, LCTL, LALT, LGUI, Lower, SPACE, Raise, LEFT, DOWN, UP, RIGHT]
   Lower:
   - [Sft+`, Sft+1, Sft+2, Sft+3, Sft+4, Sft+5, Sft+6, Sft+7, Sft+8, Sft+9, Sft+0, BSPC]
   - [DEL, F1, F2, F3, F4, F5, F6, Sft+-, Sft+=, 'Sft+[', 'Sft+]', Sft+\]
@@ -25,7 +25,6 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {type: held}
-    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - Adjust
     - MNXT
@@ -52,7 +51,6 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - Adjust
-    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {type: held}
     - MNXT
@@ -97,7 +95,6 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {type: held}
-    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

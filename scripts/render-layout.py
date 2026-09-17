@@ -16,6 +16,12 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 LAYER_NAMES = ["Base", "Lower", "Raise", "Adjust"]
 
+# The .vil's layout_options selects the physical build of the board.
+# 0 = MIT: one 2u spacebar, matrix (3,6) has no switch behind it.
+# 1 = grid: two 1u keys.
+LAYOUT_FOR_OPTION = {0: "LAYOUT_planck_1x2uC", 1: "LAYOUT_ortho_4x12"}
+INFO_JSON = "layouts/planck-rev5.info.json"
+
 # Vial exports QMK's long-form aliases. keymap-drawer recognises the modern short
 # names and renders them as proper glyphs, so normalise on the way through.
 ALIASES = {
@@ -40,15 +46,22 @@ def normalise(kc: str) -> str:
     return kc
 
 
-def vil_to_qmk(vil: dict) -> dict:
-    """Flatten [layer][row][col] into QMK json's per-layer flat lists."""
+def vil_to_qmk(vil: dict, layout_name: str, order: list) -> dict:
+    """Convert to QMK json, emitting keys in the physical layout's own order.
+
+    Ordering by the layout definition rather than assuming row-major matters for
+    the MIT build, where matrix (3,6) is absent because the 2u spacebar occupies
+    a single switch at (3,5).
+    """
+    layers = []
+    for layer in vil["layout"]:
+        layers.append([normalise(layer[r][c]) for r, c in order])
     return {
         "version": 1,
         "keyboard": "planck/rev5",
         "keymap": "vial",
-        "layout": "LAYOUT_ortho_4x12",
-        "layers": [[normalise(kc) for row in layer for kc in row]
-                   for layer in vil["layout"]],
+        "layout": layout_name,
+        "layers": layers,
     }
 
 
@@ -61,7 +74,16 @@ def main():
         sys.exit("keymap-drawer not found. Install with: uv tool install keymap-drawer")
 
     vil = json.loads(src.read_text())
-    qmk = vil_to_qmk(vil)
+
+    option = vil.get("layout_options", 0)
+    layout_name = LAYOUT_FOR_OPTION.get(option)
+    if layout_name is None:
+        sys.exit(f"Unknown layout_options value {option!r} in {src}")
+    info = json.loads((REPO / INFO_JSON).read_text())
+    order = [tuple(k["matrix"]) for k in info["layouts"][layout_name]["layout"]]
+    print(f"layout_options={option} -> {layout_name} ({len(order)} keys)")
+
+    qmk = vil_to_qmk(vil, layout_name, order)
     names = LAYER_NAMES[: len(qmk["layers"])]
 
     qmk_json = out_dir / (src.stem + ".qmk.json")
@@ -77,8 +99,11 @@ def main():
     yaml_path.write_text(parsed.stdout)
 
     svg_path = out_dir / (src.stem + ".svg")
-    drawn = subprocess.run(["keymap", "draw", str(yaml_path)],
-                           capture_output=True, text=True)
+    drawn = subprocess.run(
+        ["keymap", "draw", str(yaml_path),
+         "-j", str(REPO / INFO_JSON), "-l", layout_name],
+        capture_output=True, text=True,
+    )
     if drawn.returncode:
         sys.exit("keymap draw failed:\n" + drawn.stderr)
     svg_path.write_text(drawn.stdout)

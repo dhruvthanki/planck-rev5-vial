@@ -33,6 +33,8 @@ Reads the live keymap over raw HID, so it reflects the keyboard rather than any 
 * **`uid` identifies the firmware.** The value here is the little-endian form of
   `VIAL_KEYBOARD_UID` in `../keymap/config.h`. If they ever disagree, the export
   belongs to a different build and Vial will refuse it.
-* **`layout_options`** selects MIT (one 2u spacebar) vs grid (two 1u keys). `0` is
-  MIT. If your board is the grid build this must be `1`, or the GUI will show the
-  wrong physical layout.
+* **`layout_options`** selects MIT (one 2u spacebar) vs grid (two 1u keys). This
+  board is **MIT**, confirmed against the physical keyboard, so `0` is correct.
+  `render-layout.py` reads this value and picks `LAYOUT_planck_1x2uC` accordingly;
+  on the MIT build matrix `(3,6)` has no switch behind it, since the 2u spacebar is
+  a single switch at `(3,5)`.

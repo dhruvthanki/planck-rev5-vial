@@ -62,6 +62,7 @@ in vial-qmk:
 | Bootloader | `qmk-dfu` |
 | Matrix | 4 rows x 12 cols, COL2ROW |
 | Layouts | `LAYOUT_ortho_4x12`, `LAYOUT_planck_1x2uC` |
+| This board | **MIT** -- one 2u spacebar (`layout_options = 0`) |
 | Backlight pin | B7 (single colour; no RGB on this revision) |
 
 If your board reports a different PID, it is not a rev5 — check
