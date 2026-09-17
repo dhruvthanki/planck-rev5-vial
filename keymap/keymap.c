@@ -98,10 +98,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* Utility
+    *
+    * DT_DOWN / DT_UP nudge TAPPING_TERM by 10ms while you type; DT_PRNT types the
+    * current value out. The runtime value is RAM-only and resets on replug, so put
+    * the number you settle on into config.h.
+    *
     * ,-----------------------------------------------------------------------------------.
     * |      |Boot  |      |      |      |      |      |      |      |      |      |Del   |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |      |      |      |      |      |      |      |
+    * |      |      |      |      |      |      |      | TT-  | TT+  |TT prn|      |      |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * |      |      |      |      |      |      |      |      |      |      |      |      |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -110,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [3] = LAYOUT_ortho_4x12 (
         KC_TRNS, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DT_DOWN, DT_UP,   DT_PRNT, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
