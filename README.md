@@ -111,14 +111,12 @@ Four layers, following the stock Planck arrangement. Everything below is only th
 *starting point* — once Vial is running you remap in the GUI and never touch this file
 again.
 
-```
-Base                                                            (layer 0)
-,-----------------------------------------------------------------------------------.
-| Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
-| Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
-| Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
-|Adjust| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
-`-----------------------------------------------------------------------------------'
+![Planck rev5 layout](layouts/planck-rev5.svg)
+
+Regenerate after any layout change:
+
+```bash
+./scripts/render-layout.py      # layouts/*.vil -> .yaml + .svg
 ```
 
 `Lower` = `MO(1)` (symbols, F1–F12), `Raise` = `MO(2)` (numbers, brackets),
@@ -135,7 +133,10 @@ keymap/          the Vial keymap; symlinked into vial-qmk by setup.sh
   keymap.c         the four default layers
   rules.mk         feature switches and the flash budget
   vial.json        keyboard definition embedded into the firmware
-scripts/         setup / build / flash, plus dump-keymap.py (live keymap audit)
+scripts/         setup / build / flash
+  dump-keymap.py   read the live keymap off the board and audit it
+  render-layout.py render a .vil export to an SVG diagram
+layouts/         .vil exports (EEPROM backups) and generated diagrams
 docs/
   hardware.md      how the board was identified from a running system
   constraints.md   the flash and EEPROM budget, and what was traded away

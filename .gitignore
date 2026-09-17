@@ -7,3 +7,6 @@
 # Editor / OS noise
 *.swp
 .DS_Store
+
+# keymap-drawer intermediate; regenerate with scripts/render-layout.py
+layouts/*.qmk.json

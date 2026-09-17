@@ -1,0 +1,110 @@
+layout: {qmk_keyboard: planck/rev5, layout_name: LAYOUT_ortho_4x12}
+layers:
+  Base:
+  - [TAB, Q, W, E, R, T, Y, U, I, O, P, BSPC]
+  - [ESC, A, S, D, F, G, H, J, K, L, ;, '''']
+  - [LSFT, Z, X, C, V, B, N, M, ',', ., /, ENT]
+  - [Adjust, LCTL, LALT, LGUI, Lower, SPACE, SPACE, Raise, LEFT, DOWN, UP, RIGHT]
+  Lower:
+  - [Sft+`, Sft+1, Sft+2, Sft+3, Sft+4, Sft+5, Sft+6, Sft+7, Sft+8, Sft+9, Sft+0, BSPC]
+  - [DEL, F1, F2, F3, F4, F5, F6, Sft+-, Sft+=, 'Sft+[', 'Sft+]', Sft+\]
+  - - {t: ▽, type: trans}
+    - F7
+    - F8
+    - F9
+    - F10
+    - F11
+    - F12
+    - Sft+#
+    - Sft+NUBS
+    - HOME
+    - END
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - Adjust
+    - MNXT
+    - VOLD
+    - VOLU
+    - MPLY
+  Raise:
+  - ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', BSPC]
+  - [DEL, F1, F2, F3, F4, F5, F6, '-', '=', '[', ']', \]
+  - - {t: ▽, type: trans}
+    - F7
+    - F8
+    - F9
+    - F10
+    - F11
+    - F12
+    - '#'
+    - NUBS
+    - PGUP
+    - PGDN
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - Adjust
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {type: held}
+    - MNXT
+    - VOLD
+    - VOLU
+    - MPLY
+  Adjust:
+  - - {t: ▽, type: trans}
+    - QK BOOT
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - DEL
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
