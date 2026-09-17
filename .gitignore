@@ -1,0 +1,9 @@
+# Build artefacts, if anyone builds inside the repo
+*.hex
+*.bin
+*.elf
+.build/
+
+# Editor / OS noise
+*.swp
+.DS_Store

@@ -1,0 +1,124 @@
+# planck-rev5-vial
+
+A [Vial](https://get.vial.today/) port for the **OLKB Planck rev5**, which upstream
+`vial-qmk` does not ship a keymap for.
+
+Vial makes the keyboard remappable at runtime — layers, tap dance, combos and key
+overrides are edited in a GUI and take effect immediately, with no recompile and no
+reflash. Unlike VIA, the keyboard definition is embedded in the firmware, so the GUI
+works on any machine, offline, with nothing to sideload.
+
+## Why this repo exists
+
+`vial-qmk` ships Vial keymaps for `planck/rev6_drop`, `planck/rev7` and `planck/light`,
+but not for `rev5`. The matrix is identical to the supported revisions, so the port is
+small: a `vial.json`, a keyboard UID, an unlock combo, and a `rules.mk` trimmed to fit
+the rev5's ATmega32U4.
+
+## Quick start
+
+```bash
+git clone git@github.com:dhruvthanki/planck-rev5-vial.git
+cd planck-rev5-vial
+./scripts/setup.sh     # toolchain + qmk CLI + vial-qmk clone + symlink + udev rules
+./scripts/build.sh     # -> ~/vial-qmk/planck_rev5_vial.hex
+./scripts/flash.sh     # press the reset button on the back of the PCB when prompted
+```
+
+Then install the [Vial GUI](https://get.vial.today/) and open the keyboard.
+Vial asks for the **security unlock combo** before it will let you edit:
+
+> **Hold Esc + Space** (matrix positions `1,0` and `3,5`)
+
+`setup.sh` symlinks `keymap/` into the vial-qmk tree, so this repo stays the single
+source of truth — edit here, build there.
+
+## Target hardware
+
+Read off the board itself, and cross-checked against `keyboards/planck/rev5/keyboard.json`
+in vial-qmk:
+
+| Property | Value |
+| --- | --- |
+| USB VID:PID | `0x03A8:0xAE01` |
+| Device version | `0.0.5` |
+| MCU | ATmega32U4 (28672 bytes usable flash, 1 KB EEPROM) |
+| Bootloader | `qmk-dfu` |
+| Matrix | 4 rows x 12 cols, COL2ROW |
+| Layouts | `LAYOUT_ortho_4x12`, `LAYOUT_planck_1x2uC` |
+| Backlight pin | B7 (single colour; no RGB on this revision) |
+
+If your board reports a different PID, it is not a rev5 — check
+`lsusb`/`/sys/bus/usb/devices/*/idProduct` and use the matching revision instead.
+
+The keymap uses `LAYOUT_ortho_4x12` with `KC_SPC` on both `3,5` and `3,6`, so the same
+firmware works whether your board is built **MIT** (one 2u spacebar) or **grid**
+(two 1u keys). `vial.json` exposes that as a layout option in the GUI.
+
+## What the firmware includes
+
+Enabled: Vial + VIA protocol, dynamic keymaps, **tap dance**, **combos**,
+**key overrides**, auto shift, caps word, NKRO, extrakey (media/volume), bootmagic.
+
+Disabled, deliberately — see [docs/constraints.md](docs/constraints.md):
+
+| Setting | Why |
+| --- | --- |
+| `AUDIO_ENABLE = no` | No piezo populated on this board |
+| `BACKLIGHT_ENABLE = no` | No LEDs populated |
+| `RGBLIGHT_ENABLE = no` | rev5 has no RGB |
+| `CONSOLE_ENABLE = no` | Debug feature; also frees a USB endpoint for raw HID |
+| `QMK_SETTINGS = no` | Flash budget — costs the Vial settings tab |
+| `MAGIC_ENABLE = no` | Flash budget |
+| `SPACE_CADET_ENABLE = no` | Flash budget |
+| `GRAVE_ESC_ENABLE = no` | Flash budget |
+| `MUSIC_ENABLE = no` | Needs audio hardware |
+
+Re-enable anything you have hardware for — but check the size report, the budget is tight.
+
+## Current build size
+
+```
+Flash:   24716 / 28672 bytes  (86%, 3956 free)
+Layers:  4 dynamic  (EEPROM-limited, not flash-limited)
+```
+
+## Layout
+
+Four layers, following the stock Planck arrangement. Everything below is only the
+*starting point* — once Vial is running you remap in the GUI and never touch this file
+again.
+
+```
+Base                                                            (layer 0)
+,-----------------------------------------------------------------------------------.
+| Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+| Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+| Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+|      | Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+`-----------------------------------------------------------------------------------'
+```
+
+`Lower` = `MO(1)` (symbols, F1–F12), `Raise` = `MO(2)` (numbers, brackets),
+holding both reaches `layer 3`, which carries `QK_BOOT` for reflashing without
+reaching for the reset button.
+
+## Repo layout
+
+```
+keymap/          the Vial keymap; symlinked into vial-qmk by setup.sh
+  config.h         keyboard UID, layer count, unlock combo
+  keymap.c         the four default layers
+  rules.mk         feature switches and the flash budget
+  vial.json        keyboard definition embedded into the firmware
+scripts/         setup / build / flash
+docs/
+  hardware.md      how the board was identified from a running system
+  constraints.md   the flash and EEPROM budget, and what was traded away
+```
+
+## Credits and licence
+
+`keymap.c` and `vial.json` are derived from the `planck/light` Vial keymap in
+[vial-qmk](https://github.com/vial-kb/vial-qmk), originally by Jack Humbert and
+contributors. GPL-2.0-or-later, same as QMK — see [LICENSE](LICENSE).
