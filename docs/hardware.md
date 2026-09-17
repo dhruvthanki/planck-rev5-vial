@@ -46,8 +46,14 @@ Without VIA/Vial you can still map it empirically, which is worth doing before y
 overwrite a layout you might want to keep:
 
 ```bash
-sudo evtest /dev/input/by-id/usb-OLKB_Planck-event-kbd
+sudo evtest "$(ls /dev/input/by-id/*OLKB_Planck*-event-kbd | head -1)"
 ```
+
+Note the by-id path changes once Vial firmware is flashed: the node gains the
+Vial serial, e.g. `usb-OLKB_Planck_vial:f64c2b3c-event-kbd`. The glob above
+handles either. The board also presents two keyboard nodes -- boot protocol and
+NKRO -- plus a Consumer Control node for media keys, so if a key seems missing,
+check the others.
 
 Press each key and read the keycodes. Hold a layer key and sweep again for that layer.
 This reveals the base layer and any layer you can find by holding things; it will not
@@ -73,3 +79,21 @@ for nothing. On a 32U4 that matters.
 On a board whose keymap you do not know, do not hunt for a `QK_BOOT` key. Press the
 **physical reset button on the underside of the PCB**; the rev5 uses the `qmk-dfu`
 bootloader, so `dfu-programmer` picks it up from there.
+
+## Reading the live keymap
+
+Once you edit anything in Vial, the real layout lives in the keyboard's EEPROM and
+`keymap.c` is only the seed it was flashed with. To see what is actually on the
+board:
+
+```bash
+./scripts/dump-keymap.py --all
+```
+
+This speaks VIA's raw HID protocol directly (`id_dynamic_keymap_get_keycode`),
+finds the `0xFF60` interface itself, and asks the firmware for its layer count
+rather than assuming -- reading past the configured count returns zeros, which
+looks convincingly like a keymap full of dead keys.
+
+Keymap *writes* are not gated behind the Vial unlock combo; only matrix-state
+reads are (`via.c:253`). Reads of the keymap work whether the board is locked or not.

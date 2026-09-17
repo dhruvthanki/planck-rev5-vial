@@ -51,6 +51,53 @@ Tap dance, combos and key overrides all survive — verified by checking that
 `process_tap_dance.o`, `process_combo.o` and `process_key_override.o` were compiled
 into the build.
 
+## Measured costs
+
+Every number here came from an actual build, not an estimate:
+
+| Feature | Flash | Verdict |
+| --- | --- | --- |
+| `GRAVE_ESC` | +64 | enabled |
+| `DYNAMIC_TAPPING_TERM` | +270 | enabled |
+| `MOUSEKEY` | +1482 | enabled |
+| `AUTO_SHIFT` | +1494 | skipped, collides with tap-dance tuning |
+| `QMK_SETTINGS` | +5236 | impossible -- 1280 bytes past the ceiling on its own |
+
+With the three enabled features the firmware is **26530/28672 (92%, 2142 free)**.
+
+`DYNAMIC_TAPPING_TERM` is the one to notice. It gives `DT_UP`, `DT_DOWN` and
+`DT_PRNT`: tune hold-vs-tap by feel while typing, then print the value to paste
+into `keymap/config.h`. That is most of what `QMK_SETTINGS` would have bought,
+for 5% of the flash.
+
+## Keycodes that silently do nothing
+
+Disabling a feature does not remove keycodes that depend on it -- it removes the
+*handler*. The keycode still exists, Vial still renders it with a normal-looking
+label, and pressing the key does nothing whatsoever.
+
+This bit twice on the first build:
+
+* `SC_SENT` on the Enter key. Space Cadet right-shift/enter, inherited from the
+  `planck/light` keymap, with `SPACE_CADET_ENABLE = no`. Vial displayed it as
+  "RS Enter" and the key was dead. (The stock Planck default uses plain `KC_ENT`;
+  the Space Cadet version was `planck/light`'s deviation.)
+* `KC_NO` at matrix `(3,0)`, a real switch in `LAYOUT_ortho_4x12` mapped to
+  nothing at all.
+
+`scripts/dump-keymap.py` exists to catch exactly this. It reads the live keymap
+off the keyboard over raw HID and flags both failure modes. Run it after any
+firmware change that turns a feature off:
+
+```bash
+./scripts/dump-keymap.py          # audit
+./scripts/dump-keymap.py --all    # audit plus the full keymap
+```
+
+The diagnostic split, when a key does nothing: if Vial's **matrix tester** lights
+up but nothing is emitted, it is a keymap problem. If the matrix does not light
+up either, it is hardware.
+
 ## If you need more room
 
 In rough order of bytes-per-regret:

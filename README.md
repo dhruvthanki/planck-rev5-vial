@@ -25,13 +25,29 @@ cd planck-rev5-vial
 ./scripts/flash.sh     # press the reset button on the back of the PCB when prompted
 ```
 
-Then install the [Vial GUI](https://get.vial.today/) and open the keyboard.
+Then install the [Vial GUI](https://get.vial.today/) (Linux ships an AppImage --
+`chmod +x` and run) and open the keyboard.
 Vial asks for the **security unlock combo** before it will let you edit:
 
 > **Hold Esc + Space** (matrix positions `1,0` and `3,5`)
 
 `setup.sh` symlinks `keymap/` into the vial-qmk tree, so this repo stays the single
 source of truth — edit here, build there.
+
+## Checking the board
+
+`keymap.c` is only the seed. Once you edit anything in Vial the live layout lives in
+the keyboard's EEPROM and the two diverge silently, so there is a script that reads
+the truth back off the board:
+
+```bash
+./scripts/dump-keymap.py          # audit for dead keys
+./scripts/dump-keymap.py --all    # plus the full keymap, all layers
+```
+
+It flags switches mapped to `KC_NO` and keycodes whose feature is not compiled in --
+the second kind look normal in the Vial GUI but do nothing when pressed. See
+[docs/constraints.md](docs/constraints.md#keycodes-that-silently-do-nothing).
 
 ## Target hardware
 
@@ -119,7 +135,7 @@ keymap/          the Vial keymap; symlinked into vial-qmk by setup.sh
   keymap.c         the four default layers
   rules.mk         feature switches and the flash budget
   vial.json        keyboard definition embedded into the firmware
-scripts/         setup / build / flash
+scripts/         setup / build / flash, plus dump-keymap.py (live keymap audit)
 docs/
   hardware.md      how the board was identified from a running system
   constraints.md   the flash and EEPROM budget, and what was traded away
