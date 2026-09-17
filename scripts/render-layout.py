@@ -75,6 +75,14 @@ def main():
 
     vil = json.loads(src.read_text())
 
+    # Vial always writes .vil as one minified line, which makes every diff look
+    # like the whole file changed. Reformat in place; it is plain JSON and Vial
+    # loads it back unchanged.
+    pretty = json.dumps(vil, indent=2) + "\n"
+    if src.read_text() != pretty:
+        src.write_text(pretty)
+        print(f"reformatted {src.name} for readable diffs")
+
     option = vil.get("layout_options", 0)
     layout_name = LAYOUT_FOR_OPTION.get(option)
     if layout_name is None:

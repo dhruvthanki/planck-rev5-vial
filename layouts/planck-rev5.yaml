@@ -2,7 +2,18 @@ layout: {qmk_keyboard: planck/rev5, layout_name: LAYOUT_planck_1x2uC}
 layers:
   Base:
   - [TAB, Q, W, E, R, T, Y, U, I, O, P, BSPC]
-  - [ESC, A, S, D, F, G, H, J, K, L, ;, '''']
+  - - ESC
+    - {t: A, h: LGUI}
+    - {t: S, h: LALT}
+    - {t: D, h: LCTL}
+    - {t: F, h: LSFT}
+    - G
+    - H
+    - {t: J, h: RSFT}
+    - {t: K, h: RCTL}
+    - {t: L, h: RALT}
+    - {t: ;, h: RGUI}
+    - ''''
   - [LSFT, Z, X, C, V, B, N, M, ',', ., /, ENT]
   - [Adjust, LCTL, LALT, LGUI, Lower, SPACE, Raise, LEFT, DOWN, UP, RIGHT]
   Lower:
