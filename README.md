@@ -101,13 +101,15 @@ Base                                                            (layer 0)
 | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
 | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
 | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
-|      | Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+|Adjust| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
 `-----------------------------------------------------------------------------------'
 ```
 
 `Lower` = `MO(1)` (symbols, F1–F12), `Raise` = `MO(2)` (numbers, brackets),
-holding both reaches `layer 3`, which carries `QK_BOOT` for reflashing without
-reaching for the reset button.
+holding both reaches `layer 3`, as does the dedicated `Adjust` key at bottom left.
+Layer 3 carries `QK_BOOT` -- but note Vial firewalls that keycode unless the board is
+unlocked (`vial.c:81`), so use the physical reset button unless you have entered the
+unlock combo.
 
 ## Repo layout
 
