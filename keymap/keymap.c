@@ -104,20 +104,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * the number you settle on into config.h.
     *
     * ,-----------------------------------------------------------------------------------.
-    * |      |Boot  |      |      |      |      |      |      |      |      |      |Del   |
+    * |      |Boot  |      |      |      |      |Whl < |Whl v |Whl ^ |Whl > |      |Del   |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |      |      | TT-  | TT+  |TT prn|      |      |
+    * |      | TT-  | TT+  |TT prn|      |      |Mouse<|Mouse v|Mouse ^|Mouse>|     |      |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |      |      |      |      |      |      |      |
+    * |      |Slow  |Med   |Fast  |      |      | LMB  | RMB  | MMB  |      |      |      |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |             |      |      |      |      |      |
+    * |      |      |      |      |      |     LMB     |      |      |      |      |      |
     * `-----------------------------------------------------------------------------------'
     */
     [3] = LAYOUT_ortho_4x12 (
-        KC_TRNS, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DT_DOWN, DT_UP,   DT_PRNT, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+        KC_TRNS, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_TRNS, KC_DEL,
+        KC_TRNS, DT_DOWN, DT_UP,   DT_PRNT, KC_TRNS, KC_TRNS, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, KC_TRNS, KC_TRNS,
+        KC_TRNS, MS_ACL0, MS_ACL1, MS_ACL2, KC_TRNS, KC_TRNS, MS_BTN1, MS_BTN2, MS_BTN3, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MS_BTN1, MS_BTN1, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 
 };
