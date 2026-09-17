@@ -34,11 +34,16 @@ ALIASES = {
     "KC_NONUS_BSLASH": "KC_NUBS", "KC_NONUS_HASH": "KC_NUHS",
     "KC_MEDIA_NEXT_TRACK": "KC_MNXT", "KC_MEDIA_PLAY_PAUSE": "KC_MPLY",
     "KC_AUDIO_VOL_DOWN": "KC_VOLD", "KC_AUDIO_VOL_UP": "KC_VOLU",
+    # Vial has no symbolic name for the dynamic tapping term keycodes, so it
+    # exports them as raw hex. Give them readable labels in the diagram.
+    "0x7C70": "DT_PRNT", "0x7C71": "DT_UP", "0x7C72": "DT_DOWN",
 }
 
 
 def normalise(kc: str) -> str:
     """Rewrite long-form aliases, including inside wrappers like LSFT(...)."""
+    if kc.lower().startswith("0x"):
+        kc = "0x" + kc[2:].upper()
     for old, new in ALIASES.items():
         if kc == old:
             return new
